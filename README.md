@@ -49,8 +49,6 @@ To make a Coding platform where participants can solve questions for the problem
   - [Question Endpoints](#question-endpoints)
   - [Test Case Endpoints](#test-case-endpoints)
   - [Solution Submission Endpoint](#solution-submission-endpoint)
-- [Example Inputs](#example-inputs)
-- [Contributing](#contributing)
 
 ## Installation
 
