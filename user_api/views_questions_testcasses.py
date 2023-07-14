@@ -115,21 +115,18 @@ def submit_solution_view(request, question_id):
     user_solution = request.data.get('solution')
 
     try:
-        expected_output = question.test_cases.first().output
-        if user_solution == expected_output:
-            result = 'success'
-            message = 'Congratulations! Your solution is correct.'
+        expected_output = question.test_cases.filter(input = user_solution).values('output')
+        if expected_output:
+            result = expected_output[0]['output']
         else:
-            result = 'wrong'
-            message = 'Sorry, your solution is incorrect.'
+            result = 'Question does not have any test cases'
     except AttributeError:
         return Response({'error': 'Question does not have any test cases'}, status=400)
     except Exception as e:
-        return Response({'error': 'An error occurred while evaluating the solution'}, status=500)
+        return Response({'error': f'An error occurred while evaluating the solution{e}'}, status=500)
 
     response_data = {
         'result': result,
-        'message': message
     }
 
     return Response(response_data)
